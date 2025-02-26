@@ -13,7 +13,7 @@ test('test', async ({ page }) => {
   await page.getByRole('button', { name: 'Add new data source' }).click();
   await page.getByTestId('data-testid Datasource HTTP settings url').fill('http://trino:8080');
   await page.locator('div').filter({ hasText: /^Impersonate logged in userAccess token$/ }).getByLabel('Toggle switch').click();
-  await page.locator('input[type="password"]').fill('aaa');
+  await page.locator('input[type="password"]').nth(0).fill('aaa');
   await page.getByTestId('data-testid Data source settings page Save and Test button').click();
   await page.getByLabel('Explore data').click();
   await page.getByTestId('data-testid TimePicker Open Button').click();
