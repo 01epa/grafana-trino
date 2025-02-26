@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	trinoClient "github.com/trinodb/grafana-trino/pkg/trino/client"
 	"net/http"
 
 	"github.com/trinodb/grafana-trino/pkg/trino/models"
@@ -14,6 +15,14 @@ import (
 )
 
 const DriverName string = "trino"
+
+type customTransport struct {
+	client *trinoClient.TrinoClient
+}
+
+func (t *customTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	return t.client.Do(req)
+}
 
 // Open registers a new driver with a unique name
 func Open(settings models.TrinoDatasourceSettings) (*sql.DB, error) {
@@ -47,6 +56,19 @@ func Open(settings models.TrinoDatasourceSettings) (*sql.DB, error) {
 				RootCAs:            certPool,
 			},
 		},
+	}
+	if settings.TokenUrl != "" && settings.ClientId != "" && settings.ClientSecret != "" {
+		client = &http.Client{
+			Transport: &customTransport{
+				client: &trinoClient.TrinoClient{
+					Client:            client,
+					ClientId:          settings.ClientId,
+					ClientSecret:      settings.ClientSecret,
+					Url:               settings.TokenUrl,
+					ImpersonationUser: settings.ImpersonationUser,
+				},
+			},
+		}
 	}
 	err := trino.RegisterCustomClient("grafana", client)
 	if err != nil {

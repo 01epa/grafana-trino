@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 
 node_modules/
-
+pkg/
 # Runtime data
 pids
 *.pid
@@ -33,3 +33,7 @@ e2e-results/
 # Playwright
 playwright-report/
 test-results
+/*.iml
+/bin
+/*.zip
+/trino-datasource
