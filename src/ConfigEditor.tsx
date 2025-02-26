@@ -20,16 +20,16 @@ export class ConfigEditor extends PureComponent<Props, State> {
       onOptionsChange({...options, secureJsonFields: {...options.secureJsonFields, accessToken: false }, secureJsonData: {...options.secureJsonData, accessToken: '' }});
     };
     const onTokenUrlChange = (event: ChangeEvent<HTMLInputElement>) => {
-       onOptionsChange({...options, secureJsonData: {...options.secureJsonData, tokenUrl: event.target.value}})
+       onOptionsChange({...options, jsonData: {...options.jsonData, tokenUrl: event.target.value}})
     };
     const onClientIdChange = (event: ChangeEvent<HTMLInputElement>) => {
-       onOptionsChange({...options, secureJsonData: {...options.secureJsonData, clientId: event.target.value}})
+       onOptionsChange({...options, jsonData: {...options.jsonData, clientId: event.target.value}})
     };
     const onClientSecretChange = (event: ChangeEvent<HTMLInputElement>) => {
-       onOptionsChange({...options, secureJsonData: {...options.secureJsonData, clientSecret: event.target.value}})
+       onOptionsChange({...options, jsonData: {...options.jsonData, clientSecret: event.target.value}})
     };
     const onImpersonationUserChange = (event: ChangeEvent<HTMLInputElement>) => {
-      onOptionsChange({...options, secureJsonData: {...options.secureJsonData, impersonationUser: event.target.value}})
+      onOptionsChange({...options, jsonData: {...options.jsonData, impersonationUser: event.target.value}})
     };
     return (
       <div className="gf-form-group">
@@ -80,7 +80,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
                 labelWidth={26}
             >
               <Input
-                  value={options.secureJsonData?.tokenUrl ?? ''}
+                  value={options.jsonData?.tokenUrl ?? ''}
                   onChange={onTokenUrlChange}
                   width={120}
               />
@@ -93,7 +93,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
                 labelWidth={26}
             >
               <Input
-                  value={options.secureJsonData?.clientId ?? ''}
+                  value={options.jsonData?.clientId ?? ''}
                   onChange={onClientIdChange}
                   width={120}
               />
@@ -106,7 +106,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
                 labelWidth={26}
             >
               <Input
-                  value={options.secureJsonData?.clientSecret ?? ''}
+                  value={options.jsonData?.clientSecret ?? ''}
                   onChange={onClientSecretChange}
                   width={120}
                   type={"password"}
@@ -120,7 +120,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
                 labelWidth={26}
             >
               <Input
-                  value={options.secureJsonData?.impersonationUser ?? ''}
+                  value={options.jsonData?.impersonationUser ?? ''}
                   onChange={onImpersonationUserChange}
                   width={120}
               />
